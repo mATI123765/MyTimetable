@@ -1,16 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Weekly Timetable</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Timetable + Agenda</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    /* Table styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-bottom: 40px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 15px;
+      vertical-align: middle;
+      text-align: center;
+      word-wrap: break-word;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    th {
+      background-color: #4a90e2;
+      color: white;
+    }
+
+    td:hover {
+      transform: scale(1.02);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Background color classes */
+    .databases {
+      background-color: #add5ff;
+    }
+
+    .markup {
+      background-color: #6ff97b;
+    }
+
+    .itsystems {
+      background-color: #91f0ff;
+    }
+
+    .english {
+      background-color: #f56767;
+    }
+
+    .programming {
+      background-color: #dea5f2;
+    }
+
+    .tutorial {
+      background-color: #fcffa1;
+    }
+
+    .break {
+      background-color: #ff9f6b;
+    }
+
+    .project {
+      background-color: #dcf6fa;
+    }
+
+    .editable input.note-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .editable input.note-input:focus {
+      outline: 2px solid #4a90e2;
+    }
+
+    @media (max-width: 768px) {
+
+      th,
+      td {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+
+    /* Agenda Section */
+    #agenda {
+      max-width: 800px;
+      margin: 0 auto 50px auto;
+      text-align: left;
+    }
+
+    #agenda h3 {
+      margin-bottom: 15px;
+      color: #4a90e2;
+      font-size: 1.6em;
+      text-align: center;
+    }
+
+    #agenda-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #agenda-form input,
+    #agenda-form textarea {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      flex: 1 1 200px;
+    }
+
+    #agenda-form button {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #agenda-form button:hover {
+      background-color: #357ab8;
+    }
+
+    #agenda-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .agenda-item {
+      background-color: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .agenda-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .agenda-item .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background-color: #f56767;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      line-height: 25px;
+      transition: background 0.3s;
+    }
+
+    .agenda-item .delete-btn:hover {
+      background-color: #c04848;
+    }
+
+    .agenda-item .date {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .agenda-item .note {
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
   <h2>Weekly Timetable</h2>
-
-  <table border="1" cellspacing="0" cellpadding="15">
+  <table id="timetable">
     <tr>
       <th>TIME</th>
       <th>MONDAY</th>
@@ -22,45 +213,45 @@
 
     <tr>
       <td>14:10-15:05</td>
-      <td rowspan="3" align="center" bgcolor="#add5ff"> Databases <br> Aula 221</td>
-      <td rowspan="3" align="center" bgcolor="#6ff97b"> Markup Languages <br> Aula 221</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td rowspan="3" class="databases editable">Databases <br> Aula 221</td>
+      <td rowspan="3" class="markup editable">Markup Languages <br> Aula 221</td>
+      <td class="editable"></td>
+      <td class="editable"></td>
+      <td class="editable"></td>
     </tr>
 
     <tr>
       <td>15:05-16:00</td>
-      <td rowspan="2" align="center" bgcolor="#91f0ff"> IT Systems<br> Aula 221</td>
-      <td align="center" bgcolor="#f56767"> Professional English <br> Aula 225</td>
-      <td rowspan="3" align="center" bgcolor="#dea5f2"> Programming <br> / Development enviroments <br> Aula 221</td>
+      <td rowspan="2" class="itsystems editable">IT Systems<br> Aula 221</td>
+      <td class="english editable">Professional English <br> Aula 225</td>
+      <td rowspan="3" class="programming editable">Programming <br> / Development enviroments <br> Aula 221</td>
     </tr>
 
     <tr>
       <td>16:00-16:55</td>
-      <td align="center" bgcolor="#fcffa1"> Tutorial <br> Aula 221</td>
+      <td class="tutorial editable">Tutorial <br> Aula 221</td>
     </tr>
 
     <tr>
       <td>16:55-17:50</td>
-      <td align="center" bgcolor="#ff9f6b"> BREAK</td>
-      <td align="center" bgcolor="#ff9f6b"> BREAK</td>
-      <td align="center" bgcolor="#f56767"> Professional English <br> Aula 225</td>
-      <td align="center" bgcolor="#ff9f6b"> BREAK</td>
+      <td class="break editable">BREAK</td>
+      <td class="break editable">BREAK</td>
+      <td class="english editable">Professional English <br> Aula 225</td>
+      <td class="break editable">BREAK</td>
     </tr>
 
     <tr>
       <td>17:50-18:15</td>
-      <td colspan="5" align="center" bgcolor="#ff9f6b"> BREAK</td>
+      <td colspan="5" class="break editable">BREAK</td>
     </tr>
 
     <tr>
       <td>18:15-19:10</td>
-      <td rowspan="3" align="center" bgcolor="#dea5f2"> Programming <br> / Development enviroments <br> Aula 221</td>
-      <td rowspan="3" align="center" bgcolor="#91f0ff"> IT Systems<br> Aula 221</td>
-      <td rowspan="2" align="center" bgcolor="#add5ff"> Databases <br> Aula 221</td>
-      <td rowspan="3" align="center" bgcolor="#dea5f2"> Programming <br> / Development enviroments <br> Aula 221</td>
-      <td rowspan="3" align="center" bgcolor="#dea5f2"> Programming <br> / Development enviroments</td>
+      <td rowspan="3" class="programming editable">Programming <br> / Development enviroments <br> Aula 221</td>
+      <td rowspan="3" class="itsystems editable">IT Systems<br> Aula 221</td>
+      <td rowspan="2" class="databases editable">Databases <br> Aula 221</td>
+      <td rowspan="3" class="programming editable">Programming <br> / Development enviroments <br> Aula 221</td>
+      <td rowspan="3" class="programming editable">Programming <br> / Development enviroments</td>
     </tr>
 
     <tr>
@@ -69,7 +260,93 @@
 
     <tr>
       <td>20:05-21:00</td>
-      <td align="center" bgcolor="#dcf6fa"> Inter-module Project<br> Aula 221</td>
+      <td class="project editable">Inter-module Project<br> Aula 221</td>
+    </tr>
+  </table>
+
+  <!-- Agenda Section -->
+  <div id="agenda">
+    <h3>My Agenda</h3>
+    <form id="agenda-form">
+      <input type="date" id="agenda-date" required>
+      <textarea id="agenda-text" placeholder="Write your meeting, exam, or note..." required></textarea>
+      <button type="submit">Add Item</button>
+    </form>
+    <div id="agenda-list"></div>
+  </div>
+
+  <script>
+    // Timetable editable cells
+    const cells = document.querySelectorAll('td.editable');
+
+    cells.forEach(cell => {
+      const key = 'note-' + cell.innerText.replace(/\s+/g, '-');
+      const savedNote = localStorage.getItem(key);
+      if (savedNote) cell.innerHTML = savedNote;
+
+      cell.addEventListener('click', () => {
+        if (cell.querySelector('input')) return;
+        const currentText = cell.innerHTML;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'note-input';
+        input.value = currentText.replace(/<br>/g, ' ');
+        cell.innerHTML = '';
+        cell.appendChild(input);
+        input.focus();
+        input.addEventListener('blur', () => {
+          const newText = input.value;
+          cell.innerHTML = newText;
+          localStorage.setItem(key, newText);
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') input.blur();
+        });
+      });
+    });
+
+    // Agenda Section
+    const agendaForm = document.getElementById('agenda-form');
+    const agendaList = document.getElementById('agenda-list');
+
+    function renderAgenda() {
+      const agenda = JSON.parse(localStorage.getItem('agenda') || '[]');
+      agendaList.innerHTML = '';
+      agenda.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'agenda-item';
+        div.innerHTML = `<div class="date">${item.date}</div>
+                       <div class="note">${item.text}</div>
+                       <button class="delete-btn" data-index="${index}">&times;</button>`;
+        agendaList.appendChild(div);
+      });
+
+      // Attach delete buttons
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const idx = e.target.getAttribute('data-index');
+          const agenda = JSON.parse(localStorage.getItem('agenda') || '[]');
+          agenda.splice(idx, 1);
+          localStorage.setItem('agenda', JSON.stringify(agenda));
+          renderAgenda();
+        });
+      });
+    }
+
+    agendaForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const date = document.getElementById('agenda-date').value;
+      const text = document.getElementById('agenda-text').value.trim();
+      if (!date || !text) return;
+      const agenda = JSON.parse(localStorage.getItem('agenda') || '[]');
+      agenda.push({ date, text });
+      localStorage.setItem('agenda', JSON.stringify(agenda));
+      agendaForm.reset();
+      renderAgenda();
+    });
+    // Initial render
+    renderAgenda();
+  </script>
 </body>
 
 </html>
