@@ -28,7 +28,7 @@
 
     th,
     td {
-      border: 1px solid #ccc;
+      border: 1px solid #000000;
       padding: 15px;
       vertical-align: middle;
       text-align: center;
@@ -79,7 +79,7 @@
     .project {
       background-color: #dcf6fa;
     }
-
+    /* Editable cell styling */
     .editable input.note-input {
       width: 100%;
       box-sizing: border-box;
@@ -196,10 +196,94 @@
     .agenda-item .note {
       font-size: 14px;
     }
+    body.dark-mode {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+body.dark-mode table {
+  border-color: #555;
+  }
+body.dark-mode th {
+  background-color: #333;
+  color: #f0f0f0;
+}
+body.dark-mode td {
+  border-color: #000000;
+  color: #f0f0f0;
+}
+body.dark-mode .databases {
+  background-color: #1c3853;
+}
+body.dark-mode .markup {
+  background-color: #254d36;
+}
+body.dark-mode .itsystems {
+  background-color: #253a3f;
+}
+body.dark-mode .english {
+  background-color: #5a2323;
+}
+body.dark-mode .programming {
+  background-color: #4b2e4b;
+}
+body.dark-mode .tutorial {
+  background-color: #4a4a2e;
+}
+body.dark-mode .break {
+  background-color: #5a3a23;
+}
+body.dark-mode .project {
+  background-color: #23333a;
+}
   </style>
 </head>
-
 <body>
+  <!-- Night Mode Toggle Button -->
+<button id="nightModeToggle" class="toggle-btn">🌙 Night Mode</button>
+
+<script>
+  const toggleBtn = document.getElementById('nightModeToggle');
+  const body = document.body;
+
+  // Load saved preference
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
+    toggleBtn.textContent = '☀️ Light Mode';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    if (body.classList.contains('dark-mode')) {
+      toggleBtn.textContent = '☀️ Light Mode';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      toggleBtn.textContent = '🌙 Night Mode';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+</script>
+
+<style>
+  .toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    z-index: 1000;
+  }
+  .toggle-btn:hover {
+    background-color: #357ab8;
+  }
+</style>
+
   <h2>Weekly Timetable</h2>
   <table id="timetable">
     <tr>
